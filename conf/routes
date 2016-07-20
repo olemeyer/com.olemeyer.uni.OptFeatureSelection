@@ -1,1 +1,2 @@
 GET / controllers.Application.index
+POST /model controllers.Application.setModel
