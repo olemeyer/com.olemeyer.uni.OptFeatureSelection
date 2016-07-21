@@ -36,7 +36,7 @@ trait JsonReadsFeatureModel {
   implicit val featureReads:Reads[Feature]=(
     (JsPath\"id").read[String] and
       (JsPath\"active").readNullable[Boolean] and
-      (JsPath\"featureGroup").readNullable[Seq[FeatureGroup]]
+      (JsPath\"featureGroups").lazyReadNullable[Seq[FeatureGroup]](Reads.seq[FeatureGroup](featureGroupReads))
     )(Feature.apply _)
 
   implicit val featureGroupReads:Reads[FeatureGroup]=(
@@ -48,7 +48,7 @@ trait JsonReadsFeatureModel {
   implicit val softgoalInfluenceReads=Json.reads[SoftgoalInfluence]
 
   implicit val featureModelReads=Json.reads[FeatureModel]
-  
+
 
 }
 
